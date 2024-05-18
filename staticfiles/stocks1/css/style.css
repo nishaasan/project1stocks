@@ -1,0 +1,15 @@
+body {
+    padding-top: 56px;
+}
+
+.container {
+    max-width: 960px;
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+}
+
+.card {
+    margin-bottom: 1rem;
+}

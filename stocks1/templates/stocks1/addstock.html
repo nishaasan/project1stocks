@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Add Stock{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Add Stock to {{ watchlist.name }}</h1>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.symbol.label_tag }}
+            {{ form.symbol }}
+            <div class="invalid-feedback">
+                Please provide a valid stock symbol.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+{% endblock %}

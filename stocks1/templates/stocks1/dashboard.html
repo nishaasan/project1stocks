@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Dashboard</h1>
+    <a href="{% url 'add_watchlist' %}" class="btn btn-primary">Add Watchlist</a>
+</div>
+<div class="row">
+    {% for watchlist in watchlists %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ watchlist.name }}</h5>
+                <a href="{% url 'add_stock' watchlist.id %}" class="btn btn-secondary btn-sm mb-2">Add Stock</a>
+                <ul class="list-group">
+                    {% for stock in watchlist.stock_set.all %}
+                    <li class="list-group-item">
+                        {{ stock.symbol }}: 
+                        {% if stock.symbol in stock_data %}
+                            {% with stock_data_item=stock_data|default:stock.symbol %}
+                                {% if stock_data_item %}
+                                    Time: {{ stock_data_item.0 }} <br>
+                                    Open: {{ stock_data_item.1.1_open }} <br>
+                                    High: {{ stock_data_item.1.2_high }} <br>
+                                    Low: {{ stock_data_item.1.3_low }} <br>
+                                    Close: {{ stock_data_item.1.4_close }} <br>
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
